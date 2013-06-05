@@ -4,7 +4,21 @@
    Author's custom styles
    ========================================================================== */
 
+
+
 /*Quick Bootstrap mod*/
+p, li{
+    line-height: 2;
+}
+
+
+
+.row-button{
+    padding: 5px 0;
+}
+.btn-demo{
+    width: 200px;
+}
 .extra-padding{
     padding-bottom: 50px;
 
@@ -14,7 +28,7 @@
 /*splash container style*/
 
 .splash-container{
-    background: url('../img/big-image.jpg') fixed center center  no-repeat ;
+    background: url('../img/big-image.png') fixed center center  no-repeat ;
     background-size: cover;
     -moz-background-size: cover;
     -webkit-background-size: cover;
@@ -27,6 +41,7 @@
 
 #splash-image{
     visibility: hidden;
+    max-height: 980px;
 
 }
 
@@ -37,13 +52,16 @@
     width: 100%;
     padding-bottom: 10px;
     text-align: center;
+    color: #f3f3f3;
+    letter-spacing: 10px;
 }
 .splash-goto-content {
+
     bottom:  0%;
     position: absolute;
     width: 100%;
-    padding: 10px 0;
-    background-color: #FFF;
+    padding: 10px 0 20px 0;
+    background-color: #fcfcfc;
 }
 
 
@@ -57,9 +75,22 @@
 
 }
 
+.form-background{
+     /* background-color: #ffe6ee*/;
+}
+.form-contour{
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+   /* border: 5px solid #ffa2bf;*/
+    border-radius: 4px;
+    padding: 20px;
+
+ 
+}
 /*footer style*/
 footer{
-    background-color: pink;
+    background-color: #f5f5f5;
     padding: 30px 0;
     margin-top: 20px;
 }
