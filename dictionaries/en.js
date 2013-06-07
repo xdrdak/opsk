@@ -27,5 +27,7 @@
 "Snazzy footer here!":"Snazzy footer here!",
 "First Name":"First Name",
 "Last Name":"Last Name",
-"Inquiry":"Inquiry"
+"Inquiry":"Inquiry",
+"other_language_name":"Français",
+"other_language_code":"fr"
 }
