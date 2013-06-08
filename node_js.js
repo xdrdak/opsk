@@ -19,7 +19,7 @@ http.createServer(function (req, res) {
 		return;
 	}
 
-	if(!isPathToIndex(request))
+	if(!isPathToHTML(request))
 	{
 		var relativePath = request;
 		var data;
@@ -78,7 +78,7 @@ var run = function(req, res)
 	console.log(wordlist);
 	var htmlData;
 	try{
-	htmlData = fileManager.readFileSync(INDEX_PATH, {'encoding': 'utf8'});
+	htmlData = fileManager.readFileSync(urlManager.parse(req.url, true)['pathname'].substring(1), {'encoding': 'utf8'});
 	}
 	catch(err)
 	{
@@ -86,19 +86,20 @@ var run = function(req, res)
 	}
 
 	var translationTags = htmlData.match(TRANSLATION_TAG_REGEX);
-	for(var i=0;i<translationTags.length;i++)
-	{
-		var baseText = translationTags[i].substring(2, translationTags[i].length-2);
-		var translatedText = wordlist[baseText];
-		if(typeof translatedText == 'undefined')
+	if(translationTags != null)
+		for(var i=0;i<translationTags.length;i++)
 		{
-			htmlData = htmlData.replace(translationTags[i], baseText);
+			var baseText = translationTags[i].substring(2, translationTags[i].length-2);
+			var translatedText = wordlist[baseText];
+			if(typeof translatedText == 'undefined')
+			{
+				htmlData = htmlData.replace(translationTags[i], baseText);
+			}
+			else
+			{
+				htmlData = htmlData.replace(translationTags[i], translatedText);
+			}
 		}
-		else
-		{
-			htmlData = htmlData.replace(translationTags[i], translatedText);
-		}
-	}
 
 	return htmlData;
 };
@@ -140,23 +141,15 @@ var accessAllowed = function(path)
 	for(var i=0;i<restr_files.length;i++)
 	{
 		var pathToRestricted = fileManager.realpathSync(restr_files[i]);
-		if(realpath == pathToRestricted)
+		if(realpath.indexOf(pathToRestricted) == 0)
 			return false;
 	}
 	return true;
 };
 
-var isPathToIndex = function(path)
+var isPathToHTML = function(path)
 {
-	try{
-	var pathToIndex = fileManager.realpathSync(INDEX_PATH);
-	var reqpath = fileManager.realpathSync(path);
-	}
-	catch(err)
-	{
-		return false;
-	}
-	return (reqpath == pathToIndex);
+	return path.indexOf(".html") == (path.length - ".html".length);
 };
 
 var redirectTo = function(response, url)
